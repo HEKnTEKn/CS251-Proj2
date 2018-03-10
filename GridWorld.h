@@ -16,10 +16,26 @@ private:
 	 * private helper functions
 	 * etc.
 	 */
+
+	class person
+	{
+		int ID;
+	};
+
+
+	class district
+	{
+	public:
+		int districtID;
+		vector<person> population;
+
+	};
+
+
 	int numRows;
 	int numColumns;
 
-	vector<int> people;
+	vector<int> decommissionedIDs;
 
 public:
 	//your constructor code here!

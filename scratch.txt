@@ -1,0 +1,11 @@
+	/*typedef struct person
+	{
+		int ID;
+	} person;
+
+	typedef struct district
+	{
+	} district;
+	*/
+
+
