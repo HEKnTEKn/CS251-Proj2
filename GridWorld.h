@@ -8,17 +8,31 @@ using std::vector;
 
 class GridWorld : public GWInterface
 {
+private:
+	/*
+	 * private stuff goes here!
+	 * typedefs
+	 * data members
+	 * private helper functions
+	 * etc.
+	 */
+	int numRows;
+	int numColumns;
+
+	vector<int> people;
 
 public:
+	//your constructor code here!
 	GridWorld(unsigned nrows, unsigned ncols)
 	{
-
-		// your constructor code here!
+		numRows = nrows;
+		numColumns = ncols;
 	}
 
+	//your destructor code here.
 	~GridWorld()
 	{
-		// your destructor code here.
+
 	}
 
 	bool birth(int row, int col, int &id)
@@ -60,21 +74,12 @@ public:
 
 	int num_rows() const
 	{
-		return 0;
+		return numRows;
 	}
 
 	int num_cols() const
 	{
-		return 0;
+		return numColumns;
 	}
-
-
-private:
-
-	// private stuff goes here!
-	//   typedefs
-	//   data members
-	//   private helper functions
-	//   etc.
 
 };
