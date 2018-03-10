@@ -19,36 +19,46 @@ private:
 
 	class person
 	{
+	private:
 		int ID;
 	};
 
 
 	class district
 	{
-	public:
-		int districtID;
-		vector<person> population;
+	private:
+		int row;
+		int column;
+
+		vector<person> people;
 
 	};
 
+	vector<vector<district>> districts;     //2d vector of districts
+
+	vector<int> decommissionedIDs;
 
 	int numRows;
 	int numColumns;
 
-	vector<int> decommissionedIDs;
+	int totalPopulation;
 
 public:
 	//your constructor code here!
 	GridWorld(unsigned nrows, unsigned ncols)
 	{
+		districts.resize(ncols, vector<district>(nrows));
+
 		numRows = nrows;
 		numColumns = ncols;
+
+		totalPopulation = 0;
 	}
 
 	//your destructor code here.
 	~GridWorld()
 	{
-
+		districts.clear();
 	}
 
 	bool birth(int row, int col, int &id)
