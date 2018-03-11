@@ -17,21 +17,18 @@ private:
 	 * etc.
 	 */
 
-	class person
-	{
-	private:
-		int ID;
-	};
+
 
 
 	class district
 	{
-	private:
+	public:
 		int row;
 		int column;
 
-		vector<person> people;
+		vector<int> people;
 
+		int population;
 	};
 
 	vector<vector<district>> districts;     //2d vector of districts
@@ -40,14 +37,13 @@ private:
 
 	int numRows;
 	int numColumns;
-
 	int totalPopulation;
 
 public:
 	//your constructor code here!
 	GridWorld(unsigned nrows, unsigned ncols)
 	{
-		districts.resize(ncols, vector<district>(nrows));
+		districts.resize(nrows, vector<district>(ncols));
 
 		numRows = nrows;
 		numColumns = ncols;
@@ -59,17 +55,53 @@ public:
 	~GridWorld()
 	{
 		districts.clear();
+
+		numRows = 0;
+		numColumns = 0;
+
+		totalPopulation = 0;
 	}
 
 	bool birth(int row, int col, int &id)
 	{
-		return false;
+		static int latestID = 0;
+
+		if ((numRows < row || row >= 0) && (numColumns < col || col >= 0))
+		{
+			if (!decommissionedIDs.empty())
+			{
+				districts[row][col].people.push_back(decommissionedIDs[0]);
+				decommissionedIDs.erase(decommissionedIDs.begin());
+			}
+			else
+			{
+				districts[row][col].people.push_back(++latestID);
+				id = latestID;
+			}
+
+
+			districts[row][col].population++;
+			++totalPopulation;
+
+
+			return true;
+		}
+		else
+		{
+			fprintf(stderr, "ERROR: ROWS OR COLUMNS ENTERED ARE NOT VALID INPUTS.");
+			return false;
+		}
 	}
 
 	bool death(int personID)
 	{
 
-		return false;
+
+		else
+		{
+			fprintf(stderr,"ERROR: ID NOT FOUND");
+			return false;
+		}
 	}
 
 	bool whereis(int id, int &row, int &col) const
@@ -90,12 +122,12 @@ public:
 
 	int population() const
 	{
-		return 0;
+		return totalPopulation;
 	}
 
 	int population(int row, int col) const
 	{
-		return 0;
+		return districts[row][col].population;
 	}
 
 	int num_rows() const
