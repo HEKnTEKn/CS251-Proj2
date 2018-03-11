@@ -4,8 +4,8 @@ project(prog2)
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
-        SAMPLE-TESTS/t1.cpp
-        SAMPLE-TESTS/t2.cpp
+        #SAMPLE-TESTS/t1.cpp
+        #SAMPLE-TESTS/t2.
         driver.cpp
         GridWorld.h
         GWInterface.h)

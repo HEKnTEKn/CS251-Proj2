@@ -18,6 +18,20 @@ private:
 	 */
 
 
+	class world
+	{
+	public:
+		int ID;
+		int row;
+		int column;
+
+		world(int newRow, int newColumn, int newID)
+		{
+			ID = newID;
+			row = newRow;
+			column = newColumn;
+		}
+	};
 
 
 	class district
@@ -32,6 +46,8 @@ private:
 	};
 
 	vector<vector<district>> districts;     //2d vector of districts
+
+	vector<world> popRegister;
 
 	vector<int> decommissionedIDs;
 
@@ -64,19 +80,26 @@ public:
 
 	bool birth(int row, int col, int &id)
 	{
-		static int latestID = 0;
+		static int latestID = 1;
 
 		if ((numRows < row || row >= 0) && (numColumns < col || col >= 0))
 		{
 			if (!decommissionedIDs.empty())
 			{
 				districts[row][col].people.push_back(decommissionedIDs[0]);
+
+				popRegister.emplace_back(row,col,decommissionedIDs[0]);
+
 				decommissionedIDs.erase(decommissionedIDs.begin());
+
 			}
 			else
 			{
-				districts[row][col].people.push_back(++latestID);
-				id = latestID;
+				districts[row][col].people.push_back(latestID);
+
+				popRegister.emplace_back(row,col,latestID);
+
+				id = ++latestID;
 			}
 
 
@@ -84,6 +107,7 @@ public:
 			++totalPopulation;
 
 
+			return true;
 			return true;
 		}
 		else
@@ -97,11 +121,12 @@ public:
 	{
 
 
-		else
-		{
-			fprintf(stderr,"ERROR: ID NOT FOUND");
+
+		//else
+		//{
+		//	fprintf(stderr,"ERROR: ID NOT FOUND");
 			return false;
-		}
+		//}
 	}
 
 	bool whereis(int id, int &row, int &col) const
